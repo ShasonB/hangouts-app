@@ -2,8 +2,6 @@
 
 A modern, responsive social platform where users can create, discover, and join community experiences — from yoga and concerts to food tours and adventures.
 
-![Hangouts App Screenshot](./path-to-screenshot.png)
-
 ## Features
 
 - Home feed with experience cards  
