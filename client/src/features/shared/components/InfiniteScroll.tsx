@@ -2,14 +2,12 @@ import { useEffect, useRef } from "react";
 
 type InfiniteScrollProps = {
   children: React.ReactNode;
-  hasNextPage?: boolean;
   onLoadMore: () => void;
   threshold?: number;
 };
 
 export function InfiniteScroll({
   children,
-  hasNextPage,
   onLoadMore,
   threshold = 500,
 }: InfiniteScrollProps) {
@@ -19,7 +17,7 @@ export function InfiniteScroll({
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
-        if (target.isIntersecting && hasNextPage) {
+        if (target.isIntersecting) {
           onLoadMore();
         }
       },
@@ -36,7 +34,7 @@ export function InfiniteScroll({
         observer.unobserve(currentContainer);
       }
     };
-  }, [onLoadMore, hasNextPage, threshold]);
+  }, [onLoadMore, threshold]);
 
   return (
     <div>

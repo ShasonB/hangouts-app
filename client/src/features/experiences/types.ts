@@ -4,8 +4,9 @@ type ExperienceWithUser = Experience & {
   user: User;
 };
 
-type ExperienceWitCommentsCount = Experience & {
+type ExperienceWithCommentsCount = Experience & {
   commentsCount: number;
 };
 
-export type ExperienceForList = ExperienceWithUser & ExperienceWitCommentsCount;
+export type ExperienceForList = ExperienceWithUser &
+  ExperienceWithCommentsCount;

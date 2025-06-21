@@ -58,10 +58,7 @@ function Index() {
   );
 
   return (
-    <InfiniteScroll
-      hasNextPage={!!experiencesQuery.data?.pages[0].nextCursor}
-      onLoadMore={experiencesQuery.fetchNextPage}
-    >
+    <InfiniteScroll onLoadMore={experiencesQuery.fetchNextPage}>
       <ExperienceList
         experiences={
           experiencesQuery.data?.pages.flatMap((page) => page.experiences) ?? []
