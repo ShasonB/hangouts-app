@@ -3,12 +3,18 @@ import Card from "../../shared/components/ui/Card";
 import { CommentsSection } from "@/features/comments/components/CommentsSection";
 
 import { ExperienceForList } from "../types";
+import { useState } from "react";
 
 type ExperienceCardProps = {
   experience: ExperienceForList;
 };
 
 export function ExperienceCard({ experience }: ExperienceCardProps) {
+  const [showCommentSection, setShowCommentSection] = useState(false);
+  const toggleCommentSection = () => {
+    setShowCommentSection((prev) => !prev);
+  };
+
   return (
     <Card className="overflow-hidden p-0">
       <ExperienceCardMedia experience={experience} />
@@ -16,11 +22,16 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
         <ExperienceCardHeader experience={experience} />
         <ExperienceCardContent experience={experience} />
         <ExperienceCardMeta experience={experience} />
-        <ExperienceCardMetricButtons experience={experience} />
-        <CommentsSection
-          experienceId={experience.id}
-          commentsCount={experience.commentsCount}
+        <ExperienceCardMetricButtons
+          handleOpenComments={toggleCommentSection}
+          experience={experience}
         />
+        {showCommentSection && (
+          <CommentsSection
+            experienceId={experience.id}
+            commentsCount={experience.commentsCount}
+          />
+        )}
       </div>
     </Card>
   );
@@ -88,15 +99,21 @@ function ExperienceCardMeta({ experience }: ExperienceCardMetaProps) {
   );
 }
 
-type ExperienceCardMetricButtonProps = Pick<ExperienceCardProps, "experience">;
+type ExperienceCardMetricButtonProps = Pick<
+  ExperienceCardProps,
+  "experience"
+> & {
+  handleOpenComments: () => void;
+};
 
 function ExperienceCardMetricButtons({
   experience,
+  handleOpenComments,
 }: ExperienceCardMetricButtonProps) {
   return (
-    <div className="flex items-center gap-2">
+    <button onClick={handleOpenComments} className="flex items-center gap-2">
       <MessageSquare className="h-5 w-5" />
       <span>{experience.commentsCount}</span>
-    </div>
+    </button>
   );
 }

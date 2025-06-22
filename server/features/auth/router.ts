@@ -2,7 +2,7 @@ import {
   changeEmailSchema,
   changePasswordSchema,
   userCredentialsSchema,
-} from "@hangsouts-app/shared/schema/auth";
+} from "@hangouts-app/shared/schema/auth";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";

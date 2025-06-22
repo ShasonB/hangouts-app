@@ -1,4 +1,4 @@
-import { Experience, User } from "@hangsouts-app/server/database/schema";
+import { Experience, User } from "@hangouts-app/server/database/schema";
 
 type ExperienceWithUser = Experience & {
   user: User;

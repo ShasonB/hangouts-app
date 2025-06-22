@@ -1,4 +1,4 @@
-import { userEditSchema } from "@hangsouts-app/shared/schema/auth";
+import { userEditSchema } from "@hangouts-app/shared/schema/auth";
 import { TRPCError } from "@trpc/server";
 import { and, count, eq } from "drizzle-orm";
 import { z } from "zod";

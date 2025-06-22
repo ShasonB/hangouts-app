@@ -1,4 +1,4 @@
-import { LocationData } from "@hangsouts-app/shared/schema/experience";
+import { LocationData } from "@hangouts-app/shared/schema/experience";
 import { faker } from "@faker-js/faker";
 
 import { auth } from "../features/auth";
@@ -22,10 +22,10 @@ async function seed() {
   const [demoUser] = await db
     .insert(usersTable)
     .values({
-      name: "Cosden Solutions",
-      bio: "Cosden Solutions is a company that teaches people how to code in React.",
-      email: "demo@cosdensolutions.io",
-      password: await auth.hashPassword("cosdensolutions"),
+      name: "Shason Briscoe",
+      bio: "Shason is a software engineer located in the Bay Area.",
+      email: "shasonb@email.io",
+      password: await auth.hashPassword("shasonb"),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     })

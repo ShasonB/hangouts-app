@@ -1,4 +1,4 @@
-import { Comment, User } from "@hangsouts-app/server/database/schema";
+import { Comment, User } from "@hangouts-app/server/database/schema";
 
 type CommentWithUser = Comment & {
   user: User;
