@@ -4,17 +4,14 @@ import { CommentsSection } from "@/features/comments/components/CommentsSection"
 
 import { ExperienceForList } from "../types";
 import { useState } from "react";
+import Link from "@/features/shared/components/ui/Link";
+import { Button } from "@/features/shared/components/ui/Button";
 
 type ExperienceCardProps = {
   experience: ExperienceForList;
 };
 
 export function ExperienceCard({ experience }: ExperienceCardProps) {
-  const [showCommentSection, setShowCommentSection] = useState(false);
-  const toggleCommentSection = () => {
-    setShowCommentSection((prev) => !prev);
-  };
-
   return (
     <Card className="overflow-hidden p-0">
       <ExperienceCardMedia experience={experience} />
@@ -22,16 +19,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
         <ExperienceCardHeader experience={experience} />
         <ExperienceCardContent experience={experience} />
         <ExperienceCardMeta experience={experience} />
-        <ExperienceCardMetricButtons
-          handleOpenComments={toggleCommentSection}
-          experience={experience}
-        />
-        {showCommentSection && (
-          <CommentsSection
-            experienceId={experience.id}
-            commentsCount={experience.commentsCount}
-          />
-        )}
+        <ExperienceCardMetricButtons experience={experience} />
       </div>
     </Card>
   );
@@ -61,9 +49,12 @@ function ExperienceCardHeader({ experience }: ExperienceCardHeaderProps) {
   return (
     <div>
       <div>{experience.user.name}</div>
-      <h2 className="text-secondary-500 dark:text-primary-500 text-xl font-bold">
-        {experience.title}
-      </h2>
+      <Link
+        to="/experiences/$experienceId"
+        params={{ experienceId: experience.id }}
+      >
+        <h2 className="text-xl font-bold">{experience.title}</h2>
+      </Link>
     </div>
   );
 }
@@ -99,21 +90,23 @@ function ExperienceCardMeta({ experience }: ExperienceCardMetaProps) {
   );
 }
 
-type ExperienceCardMetricButtonProps = Pick<
-  ExperienceCardProps,
-  "experience"
-> & {
-  handleOpenComments: () => void;
-};
+type ExperienceCardMetricButtonProps = Pick<ExperienceCardProps, "experience">;
 
 function ExperienceCardMetricButtons({
   experience,
-  handleOpenComments,
 }: ExperienceCardMetricButtonProps) {
   return (
-    <button onClick={handleOpenComments} className="flex items-center gap-2">
-      <MessageSquare className="h-5 w-5" />
-      <span>{experience.commentsCount}</span>
-    </button>
+    <div className="flex items-center gap-2">
+      <Button variant="link" asChild>
+        <Link
+          to="/experiences/$experienceId"
+          variant="ghost"
+          params={{ experienceId: experience.id }}
+        >
+          <MessageSquare className="h-5 w-5" />
+          <span>{experience.commentsCount}</span>
+        </Link>
+      </Button>
+    </div>
   );
 }

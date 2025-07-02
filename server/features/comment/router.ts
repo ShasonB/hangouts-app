@@ -126,7 +126,7 @@ export const commentRouter = router({
       return comment[0];
     }),
 
-  edit: protectedProcedure
+  edit: publicProcedure
     .input(
       z.object({
         id: commentSelectSchema.shape.id,
@@ -134,6 +134,8 @@ export const commentRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // TODO: Remove user with real
+      const userId = 1;
       const comment = await db.query.commentsTable.findFirst({
         where: eq(commentsTable.id, input.id),
       });
@@ -166,9 +168,11 @@ export const commentRouter = router({
       return updatedComments[0];
     }),
 
-  delete: protectedProcedure
+  delete: publicProcedure
     .input(z.object({ id: commentSelectSchema.shape.id }))
     .mutation(async ({ ctx, input }) => {
+      // TODO: Remove user with real
+      const userId = 1;
       const comment = await db.query.commentsTable.findFirst({
         where: eq(commentsTable.id, input.id),
       });
